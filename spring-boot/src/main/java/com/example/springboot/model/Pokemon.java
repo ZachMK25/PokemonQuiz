@@ -56,7 +56,7 @@ public class Pokemon {
     private String secondaryEggGroup;
     private Integer eggCycleCount;
     private Integer preEvolutionId;
-    private String evolutionId;
+    private String evolutionDetails;
 
 //    TODO evolution line?
 //    private Optional<>
@@ -114,7 +114,7 @@ public class Pokemon {
         this.secondaryEggGroup = secondaryEggGroup;
         this.eggCycleCount = eggCycleCount;
         this.preEvolutionId = preEvolutionId;
-        this.evolutionId = evolutionDetails;
+        this.evolutionDetails = evolutionDetails;
     }
 
     // Getters
@@ -280,7 +280,7 @@ public class Pokemon {
     }
 
     public String getEvolutionDetails() {
-        return evolutionId;
+        return evolutionDetails;
     }
 
 
@@ -301,7 +301,7 @@ public class Pokemon {
     }
 
     public String getType() {
-        return this.getSecondaryType().isEmpty() ? this.getPrimaryType() : this.getPrimaryType() + "/" + this.getSecondaryType();
+        return Objects.nonNull(this.getSecondaryType()) ? this.getPrimaryType() + "/" + this.getSecondaryType() : this.getPrimaryType();
     }
 
 //    TODO add extra information to pokedex entry

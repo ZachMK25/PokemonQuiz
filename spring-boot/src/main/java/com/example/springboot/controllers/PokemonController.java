@@ -42,17 +42,29 @@ public class PokemonController {
         }
         Pokemon p = pokemonRepository.findPokemonByPokedexNumber(num);
 
-        if (Objects.nonNull(p)) {
-            System.out.println(p.pokedexEntry());
+        if (Objects.isNull(p)) {
+            System.out.println("Couldn't find Pokemon with Pokedex number " + num);
         }
         else {
-            System.out.println("Couldn't find Pokemon with Pokedex number " + num);
+            System.out.println(p.pokedexEntry());
         }
     }
 
     @PostMapping("getalloftype")
     public void getPokemonByType(String type){
         List<Pokemon> allOfType = pokemonRepository.findPokemonByPrimaryOrSecondaryType(type);
+
+        if (allOfType.isEmpty()){
+            System.out.println("No Pokemon of type: " + type);
+            return;
+        }
+
+        allOfType.forEach((p) -> System.out.println(p.getName()));
+    }
+
+    @PostMapping("getallofprimarytype")
+    public void getPokemonByPrimaryType(String type){
+        List<Pokemon> allOfType = pokemonRepository.findPokemonByPrimaryType(type);
 
         if (allOfType.isEmpty()){
             System.out.println("No Pokemon of type: " + type);

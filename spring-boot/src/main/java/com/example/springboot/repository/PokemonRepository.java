@@ -9,21 +9,21 @@ import java.util.List;
 
 public interface PokemonRepository extends MongoRepository<Pokemon, String> {
 
-    @Query("{name:'?0'}")
+    @Query("{name:?0}")
     Pokemon findPokemonByName(String name);
 
     public long count();
 
     @Query(value="{primaryType:'?0'}", fields="{'name' :  1}")
-    List<Pokemon> findByPrimaryType(String type);
+    List<Pokemon> findPokemonByPrimaryType(String type);
 
     @Query(value="{secondaryType:'?0'}", fields="{'name' :  1}")
-    List<Pokemon> findBySecondaryType(String type);
+    List<Pokemon> findPokemonBySecondaryType(String type);
 
     @Query(value="{$or:[{primaryType:'?0'}, {secondaryType: '?0'}]}", fields="{'name': 1}")
     List<Pokemon> findPokemonByPrimaryOrSecondaryType(String type);
 
-    @Query("{pokedexNumber:'?0'}")
+    @Query("{pokedexNumber:?0}")
     Pokemon findPokemonByPokedexNumber(Integer num);
 
 }

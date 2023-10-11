@@ -45,6 +45,8 @@ public class Application implements CommandLineRunner{
 //
 //        getPokemonByPokedexNumber(1);
 
+        System.out.println("Starting spring-boot application...");
+
     }
 
     public void createPokemon(){
