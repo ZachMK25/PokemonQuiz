@@ -49,14 +49,23 @@ public class PokemonController {
         if (num < 1 || num > 1008){
             System.out.println("Invalid Pokedex Number");
         }
-        Pokemon p = pokemonRepository.findPokemonByPokedexNumber(num);
+        List<Pokemon> allForms = pokemonRepository.findPokemonByPokedexNumber(num);
 
-        if (Objects.isNull(p)) {
-            System.out.println("Couldn't find Pokemon with Pokedex number " + num);
+        if (Objects.isNull(allForms)){
+            System.out.println("Query returned null for Pokedex #: " + num);
+            return;
         }
-        else {
-            System.out.println(p.pokedexEntry());
+
+        if (allForms.isEmpty()){
+            System.out.println("No Pokemon of with Pokedex #: " + num);
+            return;
         }
+
+        if (allForms.size() != 1){
+            System.out.println("There are multiple forms of this pokemon.");
+        }
+
+        allForms.forEach((form) -> System.out.println(form.pokedexEntry()));
     }
 
     @PostMapping("getalloftype")
@@ -77,6 +86,18 @@ public class PokemonController {
 
         if (allOfType.isEmpty()){
             System.out.println("No Pokemon of type: " + type);
+            return;
+        }
+
+        allOfType.forEach((p) -> System.out.println(p.getName()));
+    }
+
+    @PostMapping("getallwithability")
+    public void getPokemonWithAbility(String ability){
+        List<Pokemon> allOfType = pokemonRepository.findPokemonWithAbility(ability);
+
+        if (allOfType.isEmpty()){
+            System.out.println("No Pokemon with ability: " + ability + ". Is it spelled correctly?");
             return;
         }
 

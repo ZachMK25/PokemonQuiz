@@ -24,6 +24,9 @@ public interface PokemonRepository extends MongoRepository<Pokemon, String> {
     List<Pokemon> findPokemonByPrimaryOrSecondaryType(String type);
 
     @Query("{pokedexNumber:?0}")
-    Pokemon findPokemonByPokedexNumber(Integer num);
+    List<Pokemon> findPokemonByPokedexNumber(Integer num);
+
+    @Query(value="{$or:[{primaryAbility:'?0'}, {secondaryAbility: '?0'}, {hiddenAbility: '?0'}, {specialEventAbility: '?0'}]}", fields="{'name': 1}")
+    List<Pokemon> findPokemonWithAbility(String ability);
 
 }
