@@ -1,17 +1,19 @@
 package com.example.springboot.controllers;
 
+import com.example.springboot.model.AbilityResponse;
 import com.example.springboot.model.Pokemon;
 import com.example.springboot.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.lang.Math;
 
 @RestController
+//TODO change this for deployment
+@CrossOrigin(origins = {"*"})
+
 @RequestMapping("api/pokemon")
 public class PokemonController {
 
@@ -45,7 +47,7 @@ public class PokemonController {
     }
 
     @PostMapping("findbypokedexnumber")
-    public void getPokemonByPokedexNumber(Integer num){
+    public List<Pokemon> getPokemonByPokedexNumber(Integer num){
         if (num < 1 || num > 1008){
             System.out.println("Invalid Pokedex Number");
         }
@@ -53,19 +55,20 @@ public class PokemonController {
 
         if (Objects.isNull(allForms)){
             System.out.println("Query returned null for Pokedex #: " + num);
-            return;
+            return null;
         }
 
         if (allForms.isEmpty()){
             System.out.println("No Pokemon of with Pokedex #: " + num);
-            return;
+            return null;
         }
 
         if (allForms.size() != 1){
             System.out.println("There are multiple forms of this pokemon.");
         }
 
-        allForms.forEach((form) -> System.out.println(form.pokedexEntry()));
+//        allForms.forEach((form) -> System.out.println(form.pokedexEntry()));
+        return allForms;
     }
 
     @PostMapping("getalloftype")
@@ -103,4 +106,22 @@ public class PokemonController {
 
         allOfType.forEach((p) -> System.out.println(p.getName()));
     }
+
+    @PostMapping("getrandomability")
+    public AbilityResponse getRandomAbility(){
+
+        //generates a random value 1-numEntries for the number of pokemon in the DB
+        Integer randomPokedexNumber = (int) (Math.random() * (pokemonRepository.count())) + 1;
+
+        List<Pokemon> listOfRandomDexNum = getPokemonByPokedexNumber(randomPokedexNumber);
+
+        if (Objects.isNull(listOfRandomDexNum)) return null;
+
+        if (listOfRandomDexNum.isEmpty()) return null;
+
+        Pokemon first = listOfRandomDexNum.get(0);
+
+        return new AbilityResponse(first.getPrimaryAbilityName(), first.getPrimaryAbilityDescription());
+    }
+
 }

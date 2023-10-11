@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pokemon Quiz</title>
+</head>
+
+<body>
+    <h1>Guess the Ability by the following description:</h1>
+
+    <button id="get-ability">Click for new ability</button>
+
+    <p id="ability-description">Ability Desc.</p>
+
+    <script>
+        const baseEndpointURL = "http://localhost:8080/api/pokemon/"
+        const getRandomAbilityExtension = "getrandomability"
+
+        const desc = document.getElementById("ability-description")
+
+        const button = document.getElementById("get-ability")
+
+        var abilityName = ""
+
+        function fetchAbility() {
+
+            fetch(baseEndpointURL+getRandomAbilityExtension, {
+                method: "POST"
+            })
+                .then(response => response.json())
+                .then(response => {
+                    // console.log(response)
+                    desc.textContent = response.description;
+                    abilityName = response.name;
+                })
+                .catch(error => console.log('Error: ', error));
+        }
+
+        
+        button.addEventListener("click", fetchAbility)
+
+        
+        
+
+    </script>
+
+</body>
+
+</html>

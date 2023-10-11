@@ -163,6 +163,22 @@ public class Pokemon {
         return secondaryType;
     }
 
+    public String getPrimaryAbilityName() {
+        return primaryAbility;
+    }
+
+    public String getSecondaryAbilityName() {
+        return secondaryAbility;
+    }
+
+    public String getHiddenAbilityName() {
+        return hiddenAbility;
+    }
+
+    public String getSpecialEventAbilityName() {
+        return specialEventAbility;
+    }
+
     public String getPrimaryAbilityDescription() {
         return primaryAbilityDescription;
     }
@@ -285,19 +301,19 @@ public class Pokemon {
 
 
     public String getPrimaryAbility() {
-        return this.getPrimaryAbility() + ": " + this.getPrimaryAbilityDescription();
+        return this.getPrimaryAbilityName() + ": " + this.getPrimaryAbilityDescription();
     }
 
     public String getSecondaryAbility() {
-        return this.getSecondaryAbility() + ": " + this.getSecondaryAbilityDescription();
+        return this.getSecondaryAbilityName() + ": " + this.getSecondaryAbilityDescription();
     }
 
     public String getHiddenAbility() {
-        return this.getHiddenAbility() + ": " + this.getHiddenAbilityDescription();
+        return this.getHiddenAbilityName() + ": " + this.getHiddenAbilityDescription();
     }
 
     public String getSpecialEventAbility() {
-        return this.getSpecialEventAbility() + ": " + this.getSpecialEventAbilityDescription();
+        return this.getSpecialEventAbilityName() + ": " + this.getSpecialEventAbilityDescription();
     }
 
     public String getType() {
