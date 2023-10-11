@@ -19,14 +19,23 @@ public class PokemonController {
     PokemonRepository pokemonRepository;
     @PostMapping("findbyname")
     public void getPokemonByName(String name){
-        Pokemon p = pokemonRepository.findPokemonByName(name);
+        List<Pokemon> allForms = pokemonRepository.findPokemonByName(name);
 
-        if (Objects.isNull(p)){
-            System.out.println("Could not find pokemon with name: " + name);
+        if (Objects.isNull(allForms)){
+            System.out.println("Query returned null for name: " + name);
             return;
         }
 
-        System.out.println(p.pokedexEntry());
+        if (allForms.isEmpty()){
+            System.out.println("No Pokemon of with name: " + name);
+            return;
+        }
+
+        if (allForms.size() != 1){
+            System.out.println("There are multiple forms of this pokemon.");
+        }
+
+        allForms.forEach((form) -> System.out.println(form.pokedexEntry()));
     }
 
     @PostMapping("getcount")
