@@ -28,29 +28,29 @@ public class Application implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        createPokemon();
 
-        System.out.println("\n----------------SHOW ALL POKEMON---------------------------\n");
-
-        showAllPokemon();
-
-        System.out.println("\n--------------GET POKEMON BY NAME-----------------------------------\n");
-
-        getPokemonByName("Ivysaur");
-
-        System.out.println("\n-----------GET POKEMON BY TYPE---------------------------------\n");
-
-        getPokemonByType("Poison");
-
-        System.out.println("\n-----------GET POKEMON BY POKEDEX NUMBER---------------------------------\n");
-
-        getPokemonByPokedexNumber(1);
+//        System.out.println("\n----------------SHOW ALL POKEMON---------------------------\n");
+//
+//        showAllPokemon();
+//
+//        System.out.println("\n--------------GET POKEMON BY NAME 'Ivysaur' -----------------------------------\n");
+//
+//        getPokemonByName("Ivysaur");
+//
+//        System.out.println("\n-----------GET POKEMON BY TYPE 'Poison'---------------------------------\n");
+//
+//        getPokemonByType("Poison");
+//
+//        System.out.println("\n-----------GET POKEMON BY POKEDEX NUMBER '1' ---------------------------------\n");
+//
+//        getPokemonByPokedexNumber(1);
 
     }
 
     public void createPokemon(){
         System.out.println("Data creation started...");
         pokemonRepo.save(new Pokemon(
+                //TODO find a way to get ObjectID instead of using name
                 "Ivysaur",
                 2,                         // Pokemon Id
                 2,                         // Pokedex Number
@@ -96,7 +96,7 @@ public class Application implements CommandLineRunner{
                 "Grass",                   // Secondary Egg Group
                 20,                        // Egg Cycle Count
                 1,                         // Pre-Evolution Pokemon ID
-                3               // Evolution Details
+                "Evolves at level 16"               // Evolution Details
         ));
         System.out.println("Data creation complete");
     }

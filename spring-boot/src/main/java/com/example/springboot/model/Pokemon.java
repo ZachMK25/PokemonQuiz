@@ -56,7 +56,7 @@ public class Pokemon {
     private String secondaryEggGroup;
     private Integer eggCycleCount;
     private Integer preEvolutionId;
-    private Integer evolutionId;
+    private String evolutionId;
 
 //    TODO evolution line?
 //    private Optional<>
@@ -64,7 +64,7 @@ public class Pokemon {
 
 
 
-    public Pokemon(String id, Integer pokemonId, Integer pokedexNumber, String name, String classification, String alternateFormName, Integer originalPokemonId, String legendaryType, Double pokemonHeight, Double pokemonWeight, String primaryType, String secondaryType, String primaryAbility, String primaryAbilityDescription, String secondaryAbility, String secondaryAbilityDescription, String hiddenAbility, String hiddenAbilityDescription, String specialEventAbility, String specialEventAbilityDescription, Double maleRatio, Double femaleRatio, Integer baseHappiness, String gameOfOrigin, Integer healthStat, Integer attackStat, Integer defenseStat, Integer specialAttackStat, Integer specialDefenseStat, Integer speedStat, Integer baseStatTotal, Integer healthEV, Integer attackEV, Integer defenseEV, Integer specialAttackEV, Integer specialDefenseEV, Integer speedEV, Integer evYieldTotal, Integer catchRate, String experienceGrowth, Integer experienceGrowthTotal, String primaryEggGroup, String secondaryEggGroup, Integer eggCycleCount, Integer preEvolutionId, Integer evolutionId) {
+    public Pokemon(String id, Integer pokemonId, Integer pokedexNumber, String name, String classification, String alternateFormName, Integer originalPokemonId, String legendaryType, Double pokemonHeight, Double pokemonWeight, String primaryType, String secondaryType, String primaryAbility, String primaryAbilityDescription, String secondaryAbility, String secondaryAbilityDescription, String hiddenAbility, String hiddenAbilityDescription, String specialEventAbility, String specialEventAbilityDescription, Double maleRatio, Double femaleRatio, Integer baseHappiness, String gameOfOrigin, Integer healthStat, Integer attackStat, Integer defenseStat, Integer specialAttackStat, Integer specialDefenseStat, Integer speedStat, Integer baseStatTotal, Integer healthEV, Integer attackEV, Integer defenseEV, Integer specialAttackEV, Integer specialDefenseEV, Integer speedEV, Integer evYieldTotal, Integer catchRate, String experienceGrowth, Integer experienceGrowthTotal, String primaryEggGroup, String secondaryEggGroup, Integer eggCycleCount, Integer preEvolutionId, String evolutionDetails) {
         super();
 
         this.id = id;
@@ -114,7 +114,7 @@ public class Pokemon {
         this.secondaryEggGroup = secondaryEggGroup;
         this.eggCycleCount = eggCycleCount;
         this.preEvolutionId = preEvolutionId;
-        this.evolutionId = evolutionId;
+        this.evolutionId = evolutionDetails;
     }
 
     // Getters
@@ -279,7 +279,7 @@ public class Pokemon {
         return preEvolutionId;
     }
 
-    public Integer getEvolutionId() {
+    public String getEvolutionDetails() {
         return evolutionId;
     }
 
@@ -392,8 +392,8 @@ public class Pokemon {
             if (Objects.nonNull(this.getPreEvolutionId())) {
                 entry.append("- Pre-evolution: ").append(this.getPreEvolutionId()).append("\n");
             }
-            if (Objects.nonNull(this.getEvolutionId())){
-                entry.append("- Evolution Details: ").append(this.getEvolutionId()).append("\n");
+            if (Objects.nonNull(this.getEvolutionDetails())){
+                entry.append("- Evolution Details: ").append(this.getEvolutionDetails()).append("\n");
             }
 
             return entry.toString();
