@@ -23,10 +23,6 @@
 hs_err_pid*
 replay_pid*
 
-#PokemonQuiz Ignored Files
-PokemonDatabase.csv
-
-.env
 
 **/src/main/resources/application.properties
 **/target/*
