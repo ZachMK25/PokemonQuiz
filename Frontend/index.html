@@ -12,15 +12,25 @@
 
     <p id="ability-description">Ability Desc.</p>
 
+    <input type="text" id="guess" placeholder="your guess here...">
+
+    <button id="submit-guess">Submit Guess</button>
+
+
+    <img src="resources/pikachu.gif" alt="Funny Pikachu">
+
     <script>
         const baseEndpointURL = "http://localhost:8080/api/pokemon/"
         const getRandomAbilityExtension = "getrandomability"
+        const checkGuessExtension = "checkguessedability"
 
         const desc = document.getElementById("ability-description")
 
-        const button = document.getElementById("get-ability")
+        const regenerateAbilityButton = document.getElementById("get-ability")
 
-        var abilityName = ""
+        const submitGuessButton = document.getElementById("submit-guess")
+
+        const guessTextbox = document.getElementById("guess")
 
         function fetchAbility() {
 
@@ -36,9 +46,29 @@
                 .catch(error => console.log('Error: ', error));
         }
 
+        function checkGuess(guess) {
+            fetch(baseEndpointURL+checkGuessExtension, {
+                method:"POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(guess)
+            })
+                .then(response => response.json())
+                .then(response => {
+                    isCorrect = response.isCorrect
+                    console.log(isCorrect)
+                    outputToUser = isCorrect ? "You got it right!" : "Try again"
+                    alert(outputToUser)
+                })
+                .catch(error => console.log('Error: ', error));
+        }
         
-        button.addEventListener("click", fetchAbility)
+        regenerateAbilityButton.addEventListener("click", fetchAbility)
 
+        submitGuessButton.addEventListener("click", () => {
+            guess = guessTextbox.value
+            console.log(guess)
+            checkGuess(guess)
+        })
         
         
 
