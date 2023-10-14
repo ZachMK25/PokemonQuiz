@@ -1,6 +1,7 @@
 package com.example.springboot.controllers;
 
 import com.example.springboot.model.AbilityResponse;
+import com.example.springboot.model.GuessResponse;
 import com.example.springboot.model.Pokemon;
 import com.example.springboot.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class PokemonController {
     Random random = new Random();
     final int FIRST_POKEDEX_NUMBER = 1;
     final int END_POKEDEX_NUMBER = 1008;
+
+    String correctAbility = null;
 
     @Autowired
     PokemonRepository pokemonRepository;
@@ -126,7 +129,27 @@ public class PokemonController {
 
         Pokemon first = listOfRandomDexNum.get(0);
 
+        this.correctAbility = first.getPrimaryAbilityName();
+
+        System.out.println("Set ability to: " + this.correctAbility);
+
         return new AbilityResponse(first.getPrimaryAbilityName(), first.getPrimaryAbilityDescription());
+    }
+    @PostMapping("checkguessedability")
+    public GuessResponse checkCorrectAbility(@RequestBody String guess){
+
+
+        if (Objects.isNull(guess)){
+            return new GuessResponse(false);
+        }
+
+        String cleanedGuess = guess.replace("\"", "");
+
+        System.out.println("expected: " + correctAbility);
+        System.out.println("guess: " + cleanedGuess);
+        System.out.println("output: " + Objects.equals(cleanedGuess.toLowerCase(), correctAbility.toLowerCase()));
+        //check for equality regardless of capitalization
+        return new GuessResponse(Objects.equals(cleanedGuess.toLowerCase(), correctAbility.toLowerCase()));
     }
 
 }

@@ -3,21 +3,30 @@
 
 <head>
     <title>Pokemon Quiz</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Guess the Ability by the following description:</h1>
+    <div>
+        <h1>Guess the Ability by the following description:</h1>
 
-    <button id="get-ability">Click for new ability</button>
+        <button id="get-ability">Click for new ability</button>
 
-    <p id="ability-description">Ability Desc.</p>
+        <p id="ability-description">Ability Desc.</p>
 
-    <input type="text" id="guess" placeholder="your guess here...">
+    </div>
 
-    <button id="submit-guess">Submit Guess</button>
+    <div>
+        <input type="text" id="guess" placeholder="your guess here...">
 
+        <button id="submit-guess">Submit Guess</button>
+    </div>
 
-    <img src="resources/pikachu.gif" alt="Funny Pikachu">
+    <div id="pikachu-container" class="celebration">
+        <img id="pikachu" src="resources/pikachu.gif" alt="Happy Pikachu" width="100" height="115">
+    </div>
 
     <script>
         const baseEndpointURL = "http://localhost:8080/api/pokemon/"
@@ -25,16 +34,15 @@
         const checkGuessExtension = "checkguessedability"
 
         const desc = document.getElementById("ability-description")
-
         const regenerateAbilityButton = document.getElementById("get-ability")
-
         const submitGuessButton = document.getElementById("submit-guess")
-
         const guessTextbox = document.getElementById("guess")
+        const pikachu = document.getElementById("pikachu")
+        const pikachuContainer = document.getElementById("pikachu-container")
 
         function fetchAbility() {
 
-            fetch(baseEndpointURL+getRandomAbilityExtension, {
+            fetch(baseEndpointURL + getRandomAbilityExtension, {
                 method: "POST"
             })
                 .then(response => response.json())
@@ -47,21 +55,29 @@
         }
 
         function checkGuess(guess) {
-            fetch(baseEndpointURL+checkGuessExtension, {
-                method:"POST",
-                headers: {'Content-Type': 'application/json'},
+            fetch(baseEndpointURL + checkGuessExtension, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(guess)
             })
                 .then(response => response.json())
                 .then(response => {
                     isCorrect = response.isCorrect
+                    if (isCorrect){
+                        pikachuContainer.classList.add("animate")
+                    }
                     console.log(isCorrect)
                     outputToUser = isCorrect ? "You got it right!" : "Try again"
                     alert(outputToUser)
+                    
                 })
                 .catch(error => console.log('Error: ', error));
         }
-        
+
+        function removeAnimationClass(){
+            pikachuContainer.classList.remove("animate")
+        }
+
         regenerateAbilityButton.addEventListener("click", fetchAbility)
 
         submitGuessButton.addEventListener("click", () => {
@@ -69,8 +85,10 @@
             console.log(guess)
             checkGuess(guess)
         })
-        
-        
+
+        pikachuContainer.addEventListener("animationend", removeAnimationClass)
+
+
 
     </script>
 
