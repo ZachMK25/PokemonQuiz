@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.lang.Math;
+//import java.lang.Math;
+import java.util.Random;
 
 @RestController
 //TODO change this for deployment
@@ -16,6 +17,10 @@ import java.lang.Math;
 
 @RequestMapping("api/pokemon")
 public class PokemonController {
+
+    Random random = new Random();
+    final int FIRST_POKEDEX_NUMBER = 1;
+    final int END_POKEDEX_NUMBER = 1008;
 
     @Autowired
     PokemonRepository pokemonRepository;
@@ -111,7 +116,7 @@ public class PokemonController {
     public AbilityResponse getRandomAbility(){
 
         //generates a random value 1-numEntries for the number of pokemon in the DB
-        Integer randomPokedexNumber = (int) (Math.random() * (pokemonRepository.count())) + 1;
+        Integer randomPokedexNumber = this.random.nextInt(FIRST_POKEDEX_NUMBER, END_POKEDEX_NUMBER);
 
         List<Pokemon> listOfRandomDexNum = getPokemonByPokedexNumber(randomPokedexNumber);
 
